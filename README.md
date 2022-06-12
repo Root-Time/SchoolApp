@@ -1,5 +1,4 @@
 # Schule
----
 My School App for everone on this world 
 
 ## Main Focus
