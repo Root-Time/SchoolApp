@@ -28,7 +28,7 @@ Its not for a single User its for a School System
 - Android / IOS
 
 
-## DEVS
+## Devs info
 **Framework**
 -> Flutter
 
