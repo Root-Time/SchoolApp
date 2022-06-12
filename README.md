@@ -1,16 +1,44 @@
-# schule
+# Schule
+---
+My School App for everone on this world 
 
-A new Flutter project.
+## Main Focus
+---
+> Intuitiv
+> Digitalization
+> Everthing in one App for the 24/7 Student
 
-## Getting Started
+## Version
+---
+** MEGA ALPHA **
+a0.0.1-1
+!!!NOT USEABLE RIGHT NOW!!!
 
-This project is a starting point for a Flutter application.
+## Future Usability
+---
+Its not for a single User its for a School System 
+1. Can be full self-hosted (with account on School Server) 
+2. Can be self-hosted (with Account on SchoolApp Server)
+3. Can be hosted on SchoolApp Server
 
-A few resources to get you started if this is your first Flutter project:
+## Available
+---
+### User
+- Teacher
+- Students
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### Devices
+- Website
+- Windows / Mac / Linux
+- Android / IOS
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## DEVS
+---
+**Framework**
+-> Flutter
+
+**Code Language**
+-> Dart
+
+
+ 
