@@ -19,13 +19,13 @@ Its not for a single User its for a School System
 
 ## Available
 ### User
-> Teacher
-> Students
+> Teacher \
+> Students \
 
 ### Devices
-> Website
-> Windows / Mac / Linux
-> Android / IOS
+> Website \
+> Windows / Mac / Linux \
+> Android / IOS \
 
 
 ## Devs info
