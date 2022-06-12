@@ -7,9 +7,9 @@
 > Everthing in one App for the 24/7 Student \
 
 ## Version
-** MEGA ALPHA ** \
-a0.0.1-1 \
-!!!NOT USEABLE RIGHT NOW!!! \
+> ** MEGA ALPHA ** \
+> a0.0.1-1 \
+> !!!NOT USEABLE RIGHT NOW!!! \
 
 ## Future Usability
 Its not for a single User its for a School System 
