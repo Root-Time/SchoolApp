@@ -1,37 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:schule/format/container.dart';
 
-class MyDrawer extends StatefulWidget {
+Widget drawer = const MyDrawer();
+
+class MyDrawer extends StatelessWidget {
   const MyDrawer({Key? key}) : super(key: key);
 
   @override
-  State<MyDrawer> createState() => _MyDrawerState();
-}
-
-class _MyDrawerState extends State<MyDrawer> {
-  @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 75,
+    return SizedBox(
+      width: 50,
       child: Drawer(
-        elevation: 15,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(topRight: Radius.circular(10)),
-        ),
         child: ListView(
-          children: <Widget>[
-            iconButton(Icons.home),
-            iconButton(Icons.settings)
-          ],
-        ),
+            // children: <Widget>[
+            //   for (int i = 0; i < modules.length; i++)
+            //     ListTile(
+            //       title: modules[i].icon,
+            //       onTap: () {
+            //         Navigator.pop(context);
+            //         setModule(modules[i]);
+            //       },
+            //     ),
+            // ],
+            ),
       ),
     );
   }
-}
-
-IconButton iconButton(IconData icon, {Function? onPressed}) {
-  return IconButton(
-    icon: Icon(icon),
-    onPressed: onPressed?.call(),
-  );
 }

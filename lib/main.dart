@@ -1,54 +1,40 @@
 import 'package:flutter/material.dart';
-import 'package:schule/components/appbar.dart';
-import 'package:schule/components/bottomnavigationbar.dart';
-import 'package:schule/components/drawer.dart';
-import 'package:flutter/services.dart';
-import 'package:schule/module/home/home.dart';
-import 'package:schule/module/mainpage.dart';
+import 'package:schule/theme.dart';
 
-import 'format/text.dart';
+import 'components/drawer.dart';
+import 'module/modulehandler.dart';
 
 void main() {
-  runApp(const Schule());
+  runApp(const School());
 }
 
-class Schule extends StatelessWidget {
-  const Schule({Key? key}) : super(key: key);
+class School extends StatefulWidget {
+  const School({Key? key}) : super(key: key);
 
   @override
+  State<School> createState() => _SchoolState();
+}
+
+class _SchoolState extends State<School> {
+  @override
   Widget build(BuildContext context) {
-    // SystemChrome.setEnabledSystemUIMode([SystemUiOverlay.bottom]);
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.leanBack);
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Schule',
-      home: Main(),
-    );
+    return MaterialApp(title: 'School', theme: darkMode, home: const View());
   }
 }
 
-class Main extends StatefulWidget {
-  const Main({Key? key}) : super(key: key);
+class View extends StatelessWidget {
+  const View({
+    Key? key,
+  }) : super(key: key);
 
-  @override
-  State<Main> createState() => _MainState();
-}
-
-class _MainState extends State<Main> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawerScrimColor: Colors.transparent,
-      appBar: MyAppBar(),
-      body: MainPageHandler(),
-      drawer: MyDrawer(),
-      bottomNavigationBar: MyBottomNavigationBar(),
-
-      // create a floating action button
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: icon(Icons.add),
-      ),
+      drawer: const MyDrawer(),
+      appBar: MyStreamBuilder("appBar"),
+      body: MyStreamBuilder("body"),
+      // bottomNavigationBar: null,
+      bottomNavigationBar: MyStreamBuilder("bottomNavigationBar"),
     );
   }
 }
