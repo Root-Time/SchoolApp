@@ -115,7 +115,8 @@ class Module extends StatelessWidget {
     this.appBar,
     this.bottomAppBar,
     this.bottomNavigationBar,
-  });
+    Key? key,
+  }) : super(key: key);
   void changePage(int index) {
     currentPage = pages?[index];
     pageController.animateToPage(index,
@@ -135,13 +136,21 @@ class Module extends StatelessWidget {
     return body;
   }
 
-  get body => PageView(
-        controller: pageController,
-        // scrollDirection: Axis.vertical,
-        children: [...?pages],
-        onPageChanged: (value) {
-          ModuleHandler.setPage(value, change: false);
-        },
+  get body => GestureDetector(
+        // onTap: () {
+        //   print("Tapped");
+        // },
+        child: PageView(
+          controller: pageController,
+          // physics: ModuleHandler.pageIndex == 0
+          //     ? NeverScrollableScrollPhysics()
+          //     : AlwaysScrollableScrollPhysics(),
+          // // scrollDirection: Axis.vertical,
+          children: [...?pages],
+          onPageChanged: (value) {
+            ModuleHandler.setPage(value, change: false);
+          },
+        ),
       );
 
   operator [](Object? key) {
@@ -157,54 +166,3 @@ class Module extends StatelessWidget {
     }
   }
 }
-
-// // add module to modules list
-// addModule(String name, Widget page, IconData icon) {
-//   Module module = Module(name: name, page: page, icon: icon);
-//   modules.add(module);
-// }
-
-// ModuleBody body = ModuleBody();
-// ModuleAppBar appBar = ModuleAppBar();
-// ModuleBottomAppBar bottomAppBar = ModuleBottomAppBar();
-
-// void setModule(Module page) {
-//   body.setModule(page);
-//   appBar.setModule(page);
-//   bottomAppBar.setModule(page);
-// }
-
-// class ModuleBody {
-//   final BehaviorSubject _module = BehaviorSubject.seeded(home.body);
-
-//   Stream get stream$ => _module.stream;
-//   Module get current => _module.value;
-
-//   void setModule(Module module) {
-//     currentModule = module;
-//     _module.add(module.body);
-//   }
-// }
-
-// class ModuleAppBar {
-//   final BehaviorSubject _appBar = BehaviorSubject.seeded(home.appBar);
-
-//   Stream get stream$ => _appBar.stream;
-//   Scaffold get current => _appBar.value;
-
-//   void setModule(module) {
-//     _appBar.add(module.appBar);
-//   }
-// }
-
-// class ModuleBottomAppBar {
-//   final BehaviorSubject _bottomAppBar =
-//       BehaviorSubject.seeded(home.bottomAppBar);
-
-//   Stream get stream$ => _bottomAppBar.stream;
-//   Scaffold get current => _bottomAppBar.value;
-
-//   void setModule(Module module) {
-//     _bottomAppBar.add(module.bottomAppBar);
-//   }
-// }
