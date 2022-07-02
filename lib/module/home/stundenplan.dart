@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../format/text.dart';
+import '../../widget/display.dart';
 
 class TimeTable extends StatefulWidget {
   const TimeTable({Key? key}) : super(key: key);
@@ -23,8 +23,8 @@ class _TimeTableState extends State<TimeTable> {
           ],
         ),
       ),
-      child: Center(
-        child: text('Schule'),
+      child: const Center(
+        child: MyText('Schule'),
       ),
     );
   }

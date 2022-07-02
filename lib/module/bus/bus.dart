@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:school/components/app_bar.dart';
-import 'package:school/modulehandler.dart';
 
+import '../../components/app_bar.dart';
 import '../../widget/display.dart';
+import '../modulehandler.dart';
 
 Module bus = Module(
   // name: 'Bus',
   icondata: Icons.directions_bus,
-  pages: [const Bus()],
+  pages: const [Bus()],
   appBar: const MyAppBar(title: "Page2"),
   bottomAppBar: const BottomAppBar(
     child: Text('Bus'),

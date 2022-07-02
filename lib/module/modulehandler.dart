@@ -23,6 +23,9 @@ class ModuleHandler {
 
   static Stream<Module> get module$ => _module.stream;
   static Stream<int> get page$ => _page.stream;
+  static Module get module => _module.value;
+  static int get pageIndex => _page.value;
+  static Widget get page => home.pages?[pageIndex];
 
   static void setModule(Module module) {
     _module.sink.add(module);
@@ -43,9 +46,7 @@ class MyStreamBuilder extends StatelessWidget with PreferredSizeWidget {
     return StreamBuilder(
       stream: ModuleHandler.module$,
       builder: (BuildContext acontext, AsyncSnapshot snapshot) {
-        return snapshot.hasData
-            ? snapshot.data[data] as Widget
-            : const SizedBox.shrink();
+        return snapshot.hasData ? snapshot.data[data] : const SizedBox.shrink();
       },
     );
   }
@@ -106,7 +107,7 @@ class Module extends StatelessWidget with Map {
       case 'bottomAppBar':
         return bottomAppBar;
       default:
-        throw Exception('No such key');
+        throw Exception('$key is not a valid key');
     }
   }
 

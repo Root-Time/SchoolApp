@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../components/app_bar.dart';
+import '../../components/bottom_app_bar.dart';
+import '../../widget/display.dart';
 import '../modulehandler.dart';
 
 //
@@ -13,7 +16,7 @@ Module home = Module(
   ),
   pages: const [
     MyText(
-      "Hello",
+      "Hellos",
       style: TextStyle(fontSize: 100),
     ),
     MyText("Hello2")

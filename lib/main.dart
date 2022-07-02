@@ -34,7 +34,7 @@ class View extends StatelessWidget {
       appBar: MyStreamBuilder("appBar"),
       body: MyStreamBuilder("body"),
       // bottomNavigationBar: null,
-      bottomNavigationBar: MyStreamBuilder("bottomNavigationBar"),
+      bottomNavigationBar: MyStreamBuilder("bottomAppBar"),
     );
   }
 }
