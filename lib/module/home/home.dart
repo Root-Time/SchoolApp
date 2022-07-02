@@ -14,11 +14,11 @@ Module home = Module(
     icon: [Icons.bus_alert, Icons.abc],
     title: ["Hello", "Hallo2"],
   ),
-  pages: const [
-    MyText(
+  pages: [
+    const MyText(
       "Hellos",
       style: TextStyle(fontSize: 100),
     ),
-    MyText("Hello2")
+    ModuleHandler.page
   ],
 );

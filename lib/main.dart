@@ -31,10 +31,10 @@ class View extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: const MyDrawer(),
-      appBar: MyStreamBuilder("appBar"),
-      body: MyStreamBuilder("body"),
+      appBar: ModuleHandler.appBar,
+      body: ModuleHandler.body,
       // bottomNavigationBar: null,
-      bottomNavigationBar: MyStreamBuilder("bottomAppBar"),
+      bottomNavigationBar: ModuleHandler.bottomAppBar,
     );
   }
 }

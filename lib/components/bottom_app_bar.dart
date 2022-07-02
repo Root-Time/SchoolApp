@@ -16,40 +16,41 @@ class MyBottomNavigationBar extends StatefulWidget {
 }
 
 class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
-  int _index = 0;
-
   @override
   Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      onTap: (value) {
-        // TODO Page changer
-        // print(value);
-        // Navigator.pop(context);
-        setState(() {
-          _index = value;
-          currentModule.changePage(value);
-        });
-      },
-      currentIndex: _index,
-      elevation: 10,
-      unselectedIconTheme: const IconThemeData(color: Colors.white24),
-      showSelectedLabels: false,
-      showUnselectedLabels: false,
-      items: <BottomNavigationBarItem>[
-        for (int i = 0; i < widget.icon.length; i++)
-          BottomNavigationBarItem(
-            activeIcon: Column(
-              children: [
-                MyGradient(
-                  child: Icon(widget.icon[i]),
+    return StreamBuilder(
+        stream: ModuleHandler.page$,
+        builder: (context, AsyncSnapshot<int> snapshot) {
+          if (!snapshot.hasData) {
+            return const SizedBox.shrink();
+          }
+          return BottomNavigationBar(
+            onTap: (value) {
+              setState(() {
+                ModuleHandler.setPage(value);
+              });
+            },
+            currentIndex: snapshot.data as int,
+            elevation: 10,
+            unselectedIconTheme: const IconThemeData(color: Colors.white24),
+            showSelectedLabels: false,
+            showUnselectedLabels: false,
+            items: <BottomNavigationBarItem>[
+              for (int i = 0; i < widget.icon.length; i++)
+                BottomNavigationBarItem(
+                  activeIcon: Column(
+                    children: [
+                      MyGradient(
+                        child: Icon(widget.icon[i]),
+                      ),
+                      MyText(widget.title[i]),
+                    ],
+                  ),
+                  icon: Icon(widget.icon[i]),
+                  label: widget.title[i],
                 ),
-                MyText(widget.title[i]),
-              ],
-            ),
-            icon: Icon(widget.icon[i]),
-            label: widget.title[i],
-          ),
-      ],
-    );
+            ],
+          );
+        });
   }
 }

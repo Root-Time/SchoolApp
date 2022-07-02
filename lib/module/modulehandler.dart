@@ -15,37 +15,51 @@ Module currentModule = home;
 Widget currentPage = home.pages?[1];
 
 // Handels the module switching
-
 class ModuleHandler {
   static final BehaviorSubject<Module> _module =
       BehaviorSubject<Module>.seeded(home);
-  static final BehaviorSubject<int> _page = BehaviorSubject<int>.seeded(1);
+  static final BehaviorSubject<int> _page = BehaviorSubject<int>.seeded(0);
 
   static Stream<Module> get module$ => _module.stream;
   static Stream<int> get page$ => _page.stream;
   static Module get module => _module.value;
   static int get pageIndex => _page.value;
-  static Widget get page => home.pages?[pageIndex];
 
   static void setModule(Module module) {
     _module.sink.add(module);
-    _page.sink.add(1);
+    _page.sink.add(0);
   }
 
-  static void setPage(int page) {
+  static void setPage(int page, {bool change = true}) {
+    if ((page - _page.value).abs() > 1) {
+      return module.changePage(page);
+    }
+    if (change) {
+      module.changePage(page);
+    }
+
     _page.sink.add(page);
   }
+
+  static void pageChanger(int index, setState) {
+    return pageStreamState(index, setState);
+  }
+
+  static Widget get page => const PageStream();
+  static Widget get bottomAppBar => ModuleStream("bottomAppBar");
+  static PreferredSizeWidget get appBar => ModuleStream("appBar");
+  static Widget get body => ModuleStream("body");
 }
 
-class MyStreamBuilder extends StatelessWidget with PreferredSizeWidget {
-  MyStreamBuilder(this.data, {Key? key}) : super(key: key);
+class ModuleStream extends StatelessWidget with PreferredSizeWidget {
+  ModuleStream(this.data, {Key? key}) : super(key: key);
   final String data;
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
       stream: ModuleHandler.module$,
-      builder: (BuildContext acontext, AsyncSnapshot snapshot) {
+      builder: (BuildContext _, AsyncSnapshot snapshot) {
         return snapshot.hasData ? snapshot.data[data] : const SizedBox.shrink();
       },
     );
@@ -55,8 +69,35 @@ class MyStreamBuilder extends StatelessWidget with PreferredSizeWidget {
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
 
+void pageStreamState(int index, setState) {
+  StreamBuilder(
+      stream: ModuleHandler.page$,
+      builder: (context, snapshot) {
+        return snapshot.hasData
+            ? setState(() {
+                index = snapshot.data as int;
+              })
+            : const SizedBox.shrink();
+      });
+}
+
+class PageStream extends StatelessWidget {
+  const PageStream({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder(
+        stream: ModuleHandler.page$,
+        builder: (_, AsyncSnapshot snapshot) {
+          return snapshot.hasData
+              ? Text(snapshot.data.toString())
+              : const SizedBox.shrink();
+        });
+  }
+}
+
 // to create a new Module
-class Module extends StatelessWidget with Map {
+class Module extends StatelessWidget {
   // final String name;
   final IconData icondata;
   // final Widget? body;
@@ -81,7 +122,10 @@ class Module extends StatelessWidget with Map {
         duration: const Duration(milliseconds: 600), curve: Curves.ease);
   }
 
-  PageController pageController = PageController();
+  PageController pageController = PageController(
+    initialPage: 0,
+    keepPage: true,
+  );
   get icon => MyIcon(icondata);
   String get name => body.toString();
   // get body => pages;
@@ -95,9 +139,11 @@ class Module extends StatelessWidget with Map {
         controller: pageController,
         // scrollDirection: Axis.vertical,
         children: [...?pages],
+        onPageChanged: (value) {
+          ModuleHandler.setPage(value, change: false);
+        },
       );
 
-  @override
   operator [](Object? key) {
     switch (key) {
       case 'body':
@@ -110,108 +156,6 @@ class Module extends StatelessWidget with Map {
         throw Exception('$key is not a valid key');
     }
   }
-
-  @override
-  void operator []=(key, value) {
-    // TODO: implement []=
-  }
-
-  @override
-  void addAll(Map other) {
-    // TODO: implement addAll
-  }
-
-  @override
-  void addEntries(Iterable<MapEntry> newEntries) {
-    // TODO: implement addEntries
-  }
-
-  @override
-  Map<RK, RV> cast<RK, RV>() {
-    // TODO: implement cast
-    throw UnimplementedError();
-  }
-
-  @override
-  void clear() {
-    // TODO: implement clear
-  }
-
-  @override
-  bool containsKey(Object? key) {
-    // TODO: implement containsKey
-    throw UnimplementedError();
-  }
-
-  @override
-  bool containsValue(Object? value) {
-    // TODO: implement containsValue
-    throw UnimplementedError();
-  }
-
-  @override
-  // TODO: implement entries
-  Iterable<MapEntry> get entries => throw UnimplementedError();
-
-  @override
-  void forEach(void Function(dynamic key, dynamic value) action) {
-    // TODO: implement forEach
-  }
-
-  @override
-  // TODO: implement isEmpty
-  bool get isEmpty => throw UnimplementedError();
-
-  @override
-  // TODO: implement isNotEmpty
-  bool get isNotEmpty => throw UnimplementedError();
-
-  @override
-  // TODO: implement keys
-  Iterable get keys => throw UnimplementedError();
-
-  @override
-  // TODO: implement length
-  int get length => throw UnimplementedError();
-
-  @override
-  Map<K2, V2> map<K2, V2>(
-      MapEntry<K2, V2> Function(dynamic key, dynamic value) convert) {
-    // TODO: implement map
-    throw UnimplementedError();
-  }
-
-  @override
-  putIfAbsent(key, Function() ifAbsent) {
-    // TODO: implement putIfAbsent
-    throw UnimplementedError();
-  }
-
-  @override
-  remove(Object? key) {
-    // TODO: implement remove
-    throw UnimplementedError();
-  }
-
-  @override
-  void removeWhere(bool Function(dynamic key, dynamic value) test) {
-    // TODO: implement removeWhere
-  }
-
-  @override
-  update(key, Function(dynamic value) update, {Function()? ifAbsent}) {
-    // TODO: implement update
-    throw UnimplementedError();
-  }
-
-  @override
-  void updateAll(Function(dynamic key, dynamic value) update) {
-    // TODO: implement updateAll
-  }
-
-  @override
-  // TODO: implement values
-  Iterable get values => throw UnimplementedError();
 }
 
 // // add module to modules list
